@@ -1,2 +1,2 @@
-# jogo-da-memoria
+#  Jogo da Memória
  Jogo da Memória
