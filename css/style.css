@@ -44,11 +44,11 @@ body {
 }
 
 .visivel {
-    background-color: darkgreen;
     transition: 500ms;
+    background-image: url(/imagens/00.jpg);
 }
 
 .oculta {
-    background-color: darkred;
+    background-image: url(/imagens/00.jpg);
     transition: 500ms;
 }

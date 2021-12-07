@@ -9,9 +9,11 @@ var view = {
     virarCarta: function(carta, status) {
         var areaCarta = document.getElementById(carta);
         if (status === "visivel") {
+            areaCarta.style.backgroundImage = "url(/imagens/" + model.consultarImagem(carta) + ".jpg)";
             areaCarta.classList.remove("oculta")
             areaCarta.classList.add("visivel")
         } else if (status === "oculta") {
+            areaCarta.style.backgroundImage = "url(/imagens/00.jpg)";
             areaCarta.classList.remove("visivel")
             areaCarta.classList.add("oculta")
         }
@@ -21,10 +23,26 @@ var view = {
 var model = {
     tempo: 1000,
     viradas: 0,
-    tabuleiro: 2,
     palpites: {par: ["",""] },
-    pares: [{par: ["00", "01"], virada: false},
-            {par: ["10", "11"], virada: false}],
+    pares: [{par: ["", ""], imagem: "", virada: false},
+            {par: ["", ""], imagem: "", virada: false}],
+
+    consultarImagem: function(carta) {
+        for (let i = 0; i < this.pares.length; i++) {
+            var parImagem = this.pares[i].par.indexOf(carta);
+            if (parImagem >= 0) {
+                return this.pares[i].imagem;
+            }
+        }
+    },
+
+    // atribui aleatoriamente imagens nas cartas
+    atribuirImagem: function() {
+        for (let i = 0; i < this.pares.length; i++) {
+            var imagemAtribuida = i + 1;
+            this.pares[i].imagem = imagemAtribuida.addZero();
+        }
+    },
 
     // adiciona o palpite e verifica se houve dois acertos
     adicionarPalpite: function(posicao) {
@@ -88,27 +106,46 @@ var model = {
     },
     
     criarPar: function() {
-        linha = Math.floor(Math.random() * this.tabuleiro);
-        coluna = Math.floor(Math.random() * this.tabuleiro);
-        var parNovo = [];
-
+        var parGerado = [];
         for (let i = 0; i < this.pares.length; i++) {
-            parNovo.push(linha + "" + coluna);
-        };
-        return parNovo;
+                do {
+                    var linha = Math.floor(Math.random() * this.pares.length);
+                    var coluna = Math.floor(Math.random() * this.pares.length)
+                    var parTeste = linha + "" + coluna;
+                    console.log(parTeste);
+                } while (model.existePar(parTeste));
+                parGerado.push(parTeste);  
+        }
+        return parGerado;
     },
 
-    igualPar: function(parGerado) {
-        for (let i = 0; i < array.length; i++) {
-            const element = array[i];
-            
+    existePar: function(parCompara) {
+        for (let i = 0; i < this.pares.length; i++) {
+            var parExiste = this.pares[i].par.indexOf(parCompara);
+            if (parExiste >= 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
+    },
+
+    igualPar: function(parCompara) {
+        if (parCompara[0] === parCompara[1]) {
+            return true;
+        }
+    },
+
+    criarPares: function() {
+        for (let i = 0; i < this.pares.length; i++) {
+            do {
+                var parCorreto = model.criarPar();
+            } while (model.igualPar(parCorreto));
+           this.pares[i].par = parCorreto;        
+        }
+    model.atribuirImagem();
     }
 };
-
-
-
-model.criarPar();
 
 var controller = {
     virar: function(event) {
@@ -118,9 +155,20 @@ var controller = {
     }
 };
 
+Number.prototype.addZero = function() {
+    var valor = this;
+    if (valor < 10) {
+        return "0" + valor;   
+    } else {
+        return valor;               
+    }
+};
+
 window.onload = function() {
     var cartas = document.getElementsByClassName("carta");
     for (let i = 0; i < cartas.length; i++) {
         cartas[i].onclick = controller.virar;
     }
-}
+};
+
+model.criarPares();
