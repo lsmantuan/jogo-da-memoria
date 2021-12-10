@@ -8,26 +8,116 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <main class="container">
+    <main>
         <header class="titulo">
             <h1>Jogo da Memória</h1>
         </header>
-        <section class="containerCartas">
-            <div>
-                <div>
-                    <div id="00" class="carta oculta">00</div>
-                    <div id="01" class="carta oculta">01</div>
-                </div>
-                <div>
-                    <div id="10" class="carta oculta">10</div>
-                    <div id="11" class="carta oculta">11</div>
+        <section class="container">
+            <div class="item">
+                <div id="C00" class="carta">
+                    <div id="00" class="frente"></div>
+                    <div id="V00" class="verso"></div>
                 </div>
             </div>
+            <div class="item">
+                <div id="C01" class="carta">
+                    <div id="01" class="frente"></div>
+                    <div id="V01" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C02" class="carta">
+                    <div id="02" class="frente"></div>
+                    <div id="V02" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C03" class="carta">
+                    <div id="03" class="frente"></div>
+                    <div id="V03" class="verso"></div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div id="C10" class="carta">
+                    <div id="10" class="frente"></div>
+                    <div id="V10" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C11" class="carta">
+                    <div id="11" class="frente"></div>
+                    <div id="V11" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C12" class="carta">
+                    <div id="12" class="frente"></div>
+                    <div id="V12" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C13" class="carta">
+                    <div id="13" class="frente"></div>
+                    <div id="V13" class="verso"></div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div id="C20" class="carta">
+                    <div id="20" class="frente"></div>
+                    <div id="V20" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C21" class="carta">
+                    <div id="21" class="frente"></div>
+                    <div id="V21" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C22" class="carta">
+                    <div id="22" class="frente"></div>
+                    <div id="V22" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C23" class="carta">
+                    <div id="23" class="frente"></div>
+                    <div id="V23" class="verso"></div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div id="C30" class="carta">
+                    <div id="30" class="frente"></div>
+                    <div id="V30" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C31" class="carta">
+                    <div id="31" class="frente"></div>
+                    <div id="V31" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C32" class="carta">
+                    <div id="32" class="frente"></div>
+                    <div id="V32" class="verso"></div>
+                </div>
+            </div>
+            <div class="item">
+                <div id="C33" class="carta">
+                    <div id="33" class="frente"></div>
+                    <div id="V33" class="verso"></div>
+                </div>
+            </div>            
         </section>
         <section>
-            <div id="areaMensagem" class="mensagem clear">Clique em Iniciar para Começar!</div>
+            <div id="areaPersonagem" class="mensagem clear">!!!</div>
+            <div id="areaMensagem" class="mensagem clear">Clique em iniciar para começar!</div>
             <nav class="menu clear">
-                <input type="button" value="Iniciar">
+                <input id="iniciar" type="button" value="Iniciar">
             </nav>
         </section>
     </main>
