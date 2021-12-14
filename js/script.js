@@ -76,38 +76,46 @@ var model = {
         var palpite = this.palpites;
             if (!palpite[0]) {
                 palpite[0] = alvo;
+                view.exibirPersonagem(model.consultarPersonagem(alvo));
             } else {
                 palpite[1] = alvo;
+                view.exibirPersonagem(model.consultarPersonagem(alvo));
                     if (model.compararPalpite()) {
-                        view.exibirMensagem("Acertou!");
+                        view.exibirMensagem("Parabéns, você acertou!");
                         model.configurarPartida("completo");
                         this.paresVirados++;
+                        var paresRestantes = this.totalPares - this.paresVirados;
+                        setTimeout(function() {
+                            view.exibirPersonagem("");
+                            if (paresRestantes > 1) {
+                                view.exibirMensagem("Continue tentando... Faltam " + paresRestantes + " pares!");   
+                            } else if (paresRestantes === 1) {
+                                view.exibirMensagem("Continue tentando... Falta " + paresRestantes + " par!");    
+                            };
+                        }, 2000);
                         if (model.verificarVitoria()) {
                             this.tempoTotal = model.cronometro("fim");
                             view.exibirMensagem("Parabéns. Você terminou após " + this.totalTentativas + " tentativas e em " + this.tempoTotal + " segundos!");
-                            setTimeout(function() {
-                                view.exibirMensagem("Clique em iniciar para começar!");
-                            }, 2000);
                         };
                     } else {
                         model.desativarVirar();
-                        view.exibirMensagem("Errou!");
+                        view.exibirMensagem("Você errou!");
                         setTimeout(function() {
+                            view.exibirPersonagem("");
+                            view.exibirMensagem("Continue tentando...");
                             model.configurarPartida("parcial");
                             model.ativarVirar();
-                        }, 1000);
+                        }, 1500);
                     };
             };
     },
 
-    // coloca o jogo na configuração inicial VERIFICAR VERIFICAR VERIFICAR VERIFICAR
+    // coloca o jogo na configuração inicial
     configurarPartida: function(tipo) {
         if (tipo === "completo") {
             for (let i = 0; i < 2; i++) { 
                 var palpite = this.palpites;
                 var carta = document.getElementById(palpite[i]);
-                //var par = this.pares[i];
-                //par.virada = true;
                 carta.onclick = "";
                 palpite[i] = "";
             };           
@@ -180,7 +188,7 @@ var model = {
                 view.virarCarta(i + "" + j, "verso");
                 }
             };
-        }, 3000);
+        }, 2000);
     },
 
     // calcula o tempo gasto em segundos
@@ -195,16 +203,12 @@ var model = {
     },
 
     limparParesCartas: function() {
-        var vazio = ["", ""]
         for (let i = 0; i < this.pares.length; i++) {
+            this.pares[i].virada = false;
             for (let j = 0; j < 2; j++) {
-                par = this.pares[i].par[j];
-                virada = this.pares[i].virada
-                this.pares[i].par.push(vazio)
-                console.log(par);
-                console.log(virada);
-            }
-        }
+                this.pares[i].par[j] = "";
+            };
+        };
     },
 
     // cria pares de cartas
@@ -221,7 +225,7 @@ var model = {
         model.totalTentativas = 0;
     },
 
-    // retorna um par aleatório de cartas (adicionar verificação de cartas iguais)
+    // retorna um par aleatório de cartas
     criarParCartas: function() {
         var parProvisorio = [];
             for (let i = 0; i < 2; i++) {
@@ -246,6 +250,7 @@ var model = {
         return false;
     },
 
+    // compara se as cartas são iguais
     comparaCarta: function(parTeste) {
         if (parTeste[0] === parTeste[1]) {
             return true;
@@ -262,7 +267,6 @@ var controller = {
             view.virarCarta(alvo, "frente");
             model.totalTentativas++;
             model.adicionarPalpite(alvo);
-            view.exibirPersonagem(model.consultarPersonagem(alvo));
         };
     },
 
@@ -274,7 +278,7 @@ var controller = {
         model.ativarVirar();
         setTimeout(function() {
             view.exibirMensagem("Clique nas cartas para virar.")
-        }, 1000);
+        }, 2000);
     }
 };
 
@@ -291,5 +295,3 @@ window.onload = function() {
     var iniciar = document.getElementById("iniciar")
     iniciar.onclick = controller.iniciar;
 };
-
-model.limparParesCartas();
