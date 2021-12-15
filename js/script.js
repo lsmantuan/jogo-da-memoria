@@ -32,16 +32,16 @@ var model = {
     totalPares: 8,
     totalTentativas: 0,
     palpites: ["",""],
-    pares: [{par: ["", ""], imagem: "01", virada: false}, 
-            {par: ["", ""], imagem: "02", virada: false},
-            {par: ["", ""], imagem: "03", virada: false},
-            {par: ["", ""], imagem: "04", virada: false},
-            {par: ["", ""], imagem: "05", virada: false},
-            {par: ["", ""], imagem: "06", virada: false},
-            {par: ["", ""], imagem: "07", virada: false},
-            {par: ["", ""], imagem: "08", virada: false}],
+    pares: [{par: ["00", "01"], imagem: "01", virada: false}, 
+            {par: ["02", "03"], imagem: "02", virada: false},
+            {par: ["10", "11"], imagem: "03", virada: false},
+            {par: ["12", "13"], imagem: "04", virada: false},
+            {par: ["20", "21"], imagem: "05", virada: false},
+            {par: ["22", "23"], imagem: "06", virada: false},
+            {par: ["30", "31"], imagem: "07", virada: false},
+            {par: ["32", "33"], imagem: "08", virada: false}],
     personagens: {imagem: ["01", "02", "03", "04", "05", "06", "07", "08"], 
-                  nome: ["Cosmo", "Dwight", "George", "Gob", "Larry", "Liz", "Saul", "Selina"] },
+                  nome: ["Bart", "Bender", "Fry", "Homer", "Morty", "Peter", "Rick", "Stewie"] },
 
     // atribui as imagens nas cartas
     atribuirImagemDiv: function() {
@@ -91,12 +91,13 @@ var model = {
                                 view.exibirMensagem("Continue tentando... Faltam " + paresRestantes + " pares!");   
                             } else if (paresRestantes === 1) {
                                 view.exibirMensagem("Continue tentando... Falta " + paresRestantes + " par!");    
+                            } else if (paresRestantes === 0) {
+                                if (model.verificarVitoria()) {
+                                    model.tempoTotal = model.cronometro("fim");
+                                    view.exibirMensagem("Parabéns. Você terminou após " + model.totalTentativas + " tentativas e em " + model.tempoTotal + " segundos!");
+                                };
                             };
                         }, 2000);
-                        if (model.verificarVitoria()) {
-                            this.tempoTotal = model.cronometro("fim");
-                            view.exibirMensagem("Parabéns. Você terminou após " + this.totalTentativas + " tentativas e em " + this.tempoTotal + " segundos!");
-                        };
                     } else {
                         model.desativarVirar();
                         view.exibirMensagem("Você errou!");
@@ -294,4 +295,5 @@ Number.prototype.addZero = function() {
 window.onload = function() {
     var iniciar = document.getElementById("iniciar")
     iniciar.onclick = controller.iniciar;
+    model.atribuirImagemDiv();
 };
