@@ -102,3 +102,11 @@ main {
     clear: right;
     margin: 1% 2% 0 0;
 }
+
+.rodape {
+    font-size: 1.2vmin;
+    font-weight: 700;
+    float: right;
+    clear: right;
+    margin: 1% 2% 0 0;
+}
