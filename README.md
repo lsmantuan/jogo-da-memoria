@@ -1,3 +1,3 @@
 #  Jogo da Memória
 
-Coloquei em prática aqui o conhecimento de Flexbox. Um dos desafios encontrados foi o de gerar aleatoriamente os locais para os pares das figuras.
+Durante a fase de estudos de frontend, foram desenvolvidos vários projetos, como um Catálogo de Livros, uma Calculadora de Índice de Massa Corporal, um Cronômetro e um Jogo da Memória. Todos utilizam a abordagem com ênfase no design responsivo.
